@@ -16,14 +16,15 @@ weatherForm.addEventListener("submit", (e) => {
     messageOne.textContent = "Please enter a city name !";
   } else {
     fetch(
-      `https://api.weatherapi.com/v1/current.json?key=57e1dae312674a30aab111828261504&q=${searchTerm}&aqi=no`,
+      `/weather?address=${searchTerm}`,
     ).then((response) => {
       response.json().then((data) => {
+        console.log(data)
         if (data.error) {
-          messageOne.textContent = data.error.message;
+          messageOne.textContent = data.error;
         } else {
-          messageOne.textContent = `Your provided address is ${data.location.country}`;
-          messageTwo.textContent = `It's currently ${data.current.temp_c} degrees out. It's feel like ${data.current.feelslike_c} degrees out`;
+          messageOne.textContent = `Your provided address is ${data.location}`;
+          messageTwo.textContent = data.forecast;
         }
       });
     });
